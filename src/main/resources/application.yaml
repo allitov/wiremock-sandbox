@@ -5,3 +5,6 @@ server:
 spring:
   application:
     name: wiremock-sandbox
+
+app:
+  remote-server-url: "https://fakestoreapi.com"
