@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class ProductClient {
@@ -19,5 +21,19 @@ public class ProductClient {
                 .retrieve()
                 .bodyToMono(Product.class)
                 .block();
+    }
+
+    public List<Product> getAllProducts() {
+        return webClient.get()
+                .uri("/products")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Product.class)
+                .collectList()
+                .block();
+    }
+
+    public int getProductsCount() {
+        return getAllProducts().size();
     }
 }
